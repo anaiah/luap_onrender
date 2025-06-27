@@ -16,6 +16,7 @@ const cors = require('cors')
 
 const path = require('path')
 
+const axios = require('axios')
 
 const formdata = require('form-data')
 
@@ -41,6 +42,7 @@ const pdf = require('html-pdf');//used for pdf.create
 
 const hbar = require('handlebars'); //html template
 const QRCode = require('qrcode')  // qrcode maker
+const multer = require('multer') // for file manipulate
 const sharp = require('sharp')   // for image manipulate
 
 const ftpclient = require('scp2')
@@ -79,6 +81,10 @@ connectDb()
     console.log("*** J&T GROUP ERROR, CAN'T CONNECT TO MYSQL DB!****",error.code)
 });  
 //=====CLAIMS UPLOAD
+// Set up multer for file uploads
+const storage = multer.memoryStorage();
+const upload = multer({ storage });
+
 const xlsx = require('xlsx');
 
 const mysqls = require('mysql2/promise')
