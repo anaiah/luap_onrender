@@ -61,7 +61,6 @@ connectPg()
     console.log("*** J&T GROUP ERROR, API.JS CAN'T CONNECT TO POSTGRESQL DB!****",error.code)
 }); 
 
-
 connectDb()
 .then((db)=>{
 		try{
