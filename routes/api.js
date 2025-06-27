@@ -82,7 +82,7 @@ connectDb()
 });  
 //=====CLAIMS UPLOAD
 // Set up multer for file uploads
-const storage = multer.memoryStorage();
+const storage = multer.memoryStorage(); 
 const upload = multer({ storage });
 
 const xlsx = require('xlsx');
