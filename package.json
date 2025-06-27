@@ -31,9 +31,9 @@
     "xlsx": "^0.18.5"
   },
   "scripts": {
-    "build": "nodemon --exec node --env-file=.env asn.js",
-    "dev": "nodemon --exec node --env-file=.env asn.js",
-    "test": "node asn.js"
+    "build": "nodemon --exec node --env-file=.env luap.js",
+    "dev": "nodemon --exec node --env-file=.env luap.js",
+    "test": "node luap.js"
   },
   "keywords": [
     "Vantaztic"
