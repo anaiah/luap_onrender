@@ -82,8 +82,8 @@ module.exports = (io) => {
             return res.sendStatus(400)
         }
 
-        io.emit('payment_update', event)
-        
+        io.emit('payment_update', event.data)
+
         res.sendStatus(200)
         
         
