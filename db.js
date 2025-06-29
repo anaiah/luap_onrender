@@ -12,7 +12,7 @@ module.exports={
             const con = mysql.createConnection( {
                 host: 'srv1274.hstgr.io',// setin REMOTE MYSQL HOSTINGER HPANEL
                 user: 'u757080818_luap',
-                password: 'lu@pG125c3m312c4',
+                password: '0811@G125c3',
                 database: 'u757080818_luap',
                 port:3306,
                 multipleStatements: true
