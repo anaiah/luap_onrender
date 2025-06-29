@@ -110,6 +110,11 @@ app.use('/', usersRouter);
 const payRouter = require('./routes/paymongo')(io);
 app.use('/luap', payRouter);
 
+//savedb
+const dbRouter = require('./routes/savedb')(io);
+app.use('/save', dbRouter);
+
+
 const cookieParser = require('cookie-parser');
 app.use(cookieParser())
 

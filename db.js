@@ -10,10 +10,10 @@ module.exports={
 
         return new Promise((resolve,reject)=>{
             const con = mysql.createConnection( {
-                host: 'srv1759.hstgr.io',
-                user: 'u899193124_asianowjt',
-                password: 'M312c4@g125c3',
-                database: 'u899193124_asianowjt',
+                host: 'srv1274.hstgr.io',// setin REMOTE MYSQL HOSTINGER HPANEL
+                user: 'u757080818_luap',
+                password: 'lu@pG125c3m312c4',
+                database: 'u757080818_luap',
                 port:3306,
                 multipleStatements: true
             });
