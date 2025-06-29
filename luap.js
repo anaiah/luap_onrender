@@ -218,7 +218,6 @@ io.on('connection', (socket) => {
     socket.on('disconnect', (id) => {
 		console.log('disconnecting....')
 		
-		
 			nLogged--
 		
             if(nLogged <= 0){

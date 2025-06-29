@@ -70,7 +70,6 @@ module.exports = (io) => {
 
     //WEBHOOK REGISTER
     router.post('/webhook', (req, res) =>{
-        res.sendStatus(200)
         
         const event = req.body
 
@@ -83,6 +82,10 @@ module.exports = (io) => {
             return res.sendStatus(400)
         }
 
+        io.emit('payment_update', event)
+        
+        res.sendStatus(200)
+        
         
     })
 
@@ -116,6 +119,6 @@ module.exports = (io) => {
     })
 
     return router;
-    
+
 } //ENDMODULE EXPORTS WITH SOCKET.IO
 
