@@ -81,7 +81,7 @@ module.exports = (io) => {
                     ],(err,result) => {
                 
                     if(err){
-                        //console.error('Error Login',err)
+                        console.error('Error Login',err)
                         if(err.code === 'ER_DUP_ENTRY'){
                             return res.status(200).json({success:'fail',msg:'YOU ALREADY ENROLLED!!!'})
                         //return res.status(500).json({error:"error!"})
