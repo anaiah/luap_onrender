@@ -68,7 +68,7 @@ module.exports = (io) => {
             try{
 
                 const {member_id,fullname,email,address,phone,company,dob} = req.body
-
+                console.log(sql)
                 db.query( sql ,
                     [  
                         member_id,

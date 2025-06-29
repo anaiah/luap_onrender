@@ -248,5 +248,5 @@ io.on('connection', (socket) => {
 const port = process.env.PORT||10000
 
 server_https.listen( port ,()=>{
-    console.log(`ASIANOW ENTERPRISE INC. API -- listening to port ${port}`)
+    console.log(`LUAP API -- listening to port ${port}`)
 })
