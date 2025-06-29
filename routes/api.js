@@ -50,16 +50,7 @@ const ftpclient = require('scp2')
 const app = express()
 
 app.use( cookieParser() )
-const { connectPg, closePg, closeDb, connectDb}  = require('../db')
-
-connectPg() 
-.then((pg)=>{
-    console.log("====api.js ASIANOW  J&T GROUP POSTGRESQL CONNECTION SUCCESS!====")
-    closePg(pg);
-})                        
-.catch((error)=>{
-    console.log("*** J&T GROUP ERROR, API.JS CAN'T CONNECT TO POSTGRESQL DB!****",error.code)
-}); 
+const { closeDb, connectDb}  = require('../db')
 
 connectDb()
 .then((db)=>{
@@ -87,7 +78,6 @@ const upload = multer({ storage });
 const xlsx = require('xlsx');
 
 const mysqls = require('mysql2/promise')
-
 
 module.exports = (io) => {
 const dbconfig  ={
@@ -132,8 +122,6 @@ router.post('/xlsclaims', upload.single('claims_upload_file'), async (req, res) 
 		
 			console.log('CLOSING STREAM.. EXCEL FILE UPLOADED SUCCESSFULLY!')
 			return res.status(200).json({message:'Claims Excel File Upload Successfully!',status:true})
-
-		
 		
     } catch (error) {  //end try
         console.error(error);

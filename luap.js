@@ -107,7 +107,7 @@ app.use('/', usersRouter);
 //app.use('/coor', coordRouter);
 
 //test paymongo
-const payRouter = require('./routes/paymongo');
+const payRouter = require('./routes/paymongo')(io);
 app.use('/luap', payRouter);
 
 const cookieParser = require('cookie-parser');
@@ -142,9 +142,9 @@ io.on('connection', (socket) => {
 				
 		nLogged++
 				
-		console.log('*** NEW ASIANOW  SOCKET.IO SERVICES STARTED ***\n', connectedSockets)	
+		console.log('*** NEW LUAP-APP SOCKET.IO SERVICES STARTED ***\n', connectedSockets)	
 		
-		console.log(`NEW ASIANOW 12142K24 Connected ${nLogged}`)
+		console.log(`NEW LUAP-APP Connected ${nLogged}`)
 		
 		
 	}//============eif

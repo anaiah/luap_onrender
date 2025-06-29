@@ -25,94 +25,95 @@ connectDb()
     closeDb(db);
 })                        
 .catch((error)=>{
-    console.log("*** paymongo.js J&T GROUP ERROR, CAN'T CONNECT TO MYSQL DB!****",error.code)
+    console.log("*** paymongo.js  GROUP ERROR, CAN'T CONNECT TO MYSQL DB!****",error.code)
 });
 
-//=================================START HERE ============================
-const PAYMONGO_SECRET_KEY = process.env.PAYMONGO_API_LUAP_TEST; // Store your secret key in environment variables
+module.exports = (io) => {
+    //=================================START HERE ============================
+    const PAYMONGO_SECRET_KEY = process.env.PAYMONGO_API_LUAP_TEST; // Store your secret key in environment variables
 
-router.post('/pay', async(req,res)=>{
+    router.post('/pay', async(req,res)=>{
 
-    const { amount , description } = req.body; // amount in centavos
-    try {
-        const response = await fetch('https://api.paymongo.com/v1/links', {
-            method: 'POST',
-            headers: {
-                'Authorization': 'Basic ' + Buffer.from(PAYMONGO_SECRET_KEY + ':').toString('base64'),
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                data: {
-                    attributes: {
-                        amount: parseFloat(amount), // in centavos
-                        description: description // you can customize
+        const { amount , description } = req.body; // amount in centavos
+        try {
+            const response = await fetch('https://api.paymongo.com/v1/links', {
+                method: 'POST',
+                headers: {
+                    'Authorization': 'Basic ' + Buffer.from(PAYMONGO_SECRET_KEY + ':').toString('base64'),
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    data: {
+                        attributes: {
+                            amount: parseFloat(amount), // in centavos
+                            description: description // you can customize
+                        }
                     }
-                }
-            })
-        }); //end fetch
+                })
+            }); //end fetch
 
-        if (!response.ok) {
-            // Parse error response if needed
-            const errorData = await response.json();
-            return res.status(response.status).json(errorData);
+            if (!response.ok) {
+                // Parse error response if needed
+                const errorData = await response.json();
+                return res.status(response.status).json(errorData);
+            }
+
+            const data = await response.json();
+            res.json(data);
+
+        } catch (error) {
+            console.error('Error calling PayMongo API:', error);
+            res.status(500).json({ error: 'Internal Server Error' });
         }
-
-        const data = await response.json();
-        res.json(data);
-
-    } catch (error) {
-        console.error('Error calling PayMongo API:', error);
-        res.status(500).json({ error: 'Internal Server Error' });
-    }
-})
+    })
 
 
-//WEBHOOK REGISTER
-router.post('/webhook', (req, res) =>{
-
-    const event = req.body
-
-    if(event.type === 'payment.paid'){
-        console.log("PAYMENT SUCCESSFUL!", event, data)
-    }
-
-    if(event.type === 'payment.failed'){
-        console.log("PAYMENT FAILED!", event, data)
-        return res.sendStatus(400)
-    }
-
-    res.sendStatus(200)
-})
-
-
-//===== REGISTER ONCE ONLY////////
-router.post
-router.post('/payref', async( req,res)=>{
-
-    const { refno } = req.body;
-
-    //console.log('==CONTACTING gcashref()====', req.params.ref)
-    fetch(`https://api.paymongo.com/v1/links?reference_number=${refno}`, {
-        method: 'GET',
-        headers: {
-                'Authorization': 'Basic ' + Buffer.from(PAYMONGO_SECRET_KEY + ':').toString('base64'),
-                'Content-Type': 'application/json'
-        }
-    })    
-    .then(resp => resp.json())
-    .then(( json) => {
-        console.log('===gcashref()', refno)
+    //WEBHOOK REGISTER
+    router.post('/webhook', (req, res) =>{
+        res.sendStatus(200)
         
-        if(req.params.ref==""){
-            res.json({xdata:{status:'unpaid'}})
-        }else{
-            res.json({ xdata : json.data[0].attributes} )
+        const event = req.body
+
+        if(event.type === 'payment.paid'){
+            console.log("===PAYMENT SUCCESSFUL!", event.data)
         }
+
+        if(event.type === 'payment.failed'){
+            console.log("===PAYMENT FAILED!", event.data)
+            return res.sendStatus(400)
+        }
+
         
     })
-    
-
-})
 
 
-module.exports = router;
+    //===== REGISTER ONCE ONLY////////
+    router.post('/payref', async( req,res)=>{
+
+        const { refno } = req.body;
+
+        //console.log('==CONTACTING gcashref()====', req.params.ref)
+        fetch(`https://api.paymongo.com/v1/links?reference_number=${refno}`, {
+            method: 'GET',
+            headers: {
+                    'Authorization': 'Basic ' + Buffer.from(PAYMONGO_SECRET_KEY + ':').toString('base64'),
+                    'Content-Type': 'application/json'
+            }
+        })    
+        .then(resp => resp.json())
+        .then(( json) => {
+            console.log('===gcashref()', refno)
+            
+            if(req.params.ref==""){
+                res.json({xdata:{status:'unpaid'}})
+            }else{
+                res.json({ xdata : json.data[0].attributes} )
+            }
+            
+        })
+        
+
+    })
+
+} //ENDMODULE EXPORTS WITH SOCKET.IO
+
