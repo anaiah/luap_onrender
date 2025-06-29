@@ -10,7 +10,7 @@ const cors = require('cors')
 const path = require('path')
 const querystring = require("querystring")
 
-const { connectPg, closePg, closeDb, connectDb}  = require('../db')
+const { closeDb, connectDb}  = require('../db')
 
 
 const cookieParser = require('cookie-parser')

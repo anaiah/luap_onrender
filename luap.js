@@ -14,7 +14,7 @@ connectDb()
     closeDb(db);
 })                        
 .catch((error)=>{
-    console.log("*** LUAP.JS LUAP ERROR, ASN.JS CAN'T CONNECT TO MYSQL DB!****",error.code)
+    console.log("*** LUAP.JS LUAP ERROR CAN'T CONNECT TO MYSQL DB!****",error.code)
 });  
 
 const http = require('http')
