@@ -115,5 +115,7 @@ module.exports = (io) => {
 
     })
 
+    return router;
+    
 } //ENDMODULE EXPORTS WITH SOCKET.IO
 
