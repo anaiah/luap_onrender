@@ -29,7 +29,7 @@ connectDb()
 });
 
 //=================================START HERE ============================
-const PAYMONGO_SECRET_KEY = process.env.PAYMONGO_API; // Store your secret key in environment variables
+const PAYMONGO_SECRET_KEY = process.env.PAYMONGO_API_LUAP_TEST; // Store your secret key in environment variables
 
 router.post('/pay', async(req,res)=>{
 
@@ -65,6 +65,25 @@ router.post('/pay', async(req,res)=>{
         res.status(500).json({ error: 'Internal Server Error' });
     }
 })
+
+
+//WEBHOOK REGISTER
+router.post('/webhook', (req, res) =>{
+
+    const event = req.body
+
+    if(event.type === 'payment.paid'){
+        console.log("PAYMENT SUCCESSFUL!", event, data)
+    }
+
+    if(event.type === 'payment.failed'){
+        console.log("PAYMENT FAILED!", event, data)
+        return res.sendStatus(400)
+    }
+
+    res.sendStatus(200)
+})
+
 
 router.post('/payref', async( req,res)=>{
 
